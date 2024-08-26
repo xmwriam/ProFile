@@ -2,6 +2,7 @@ from flask import Flask,render_template,request,redirect,url_for,send_file
 import fitz
 import subprocess
 import os
+from werkzeug.utils import secure_filename 
 from fileinput import filename 
 
 app = Flask(__name__)
@@ -17,7 +18,7 @@ def choose():
 
 @app.route('/rateit')
 def rate():
-    return 'a'
+    return render_template("rate.html")
 
 @app.route('/makeit',methods=["POST","GET"])
 def pdf():
@@ -113,41 +114,42 @@ def download_file():
     file_path = os.path.join('static/outputs/Resume.pdf')
     return send_file(file_path, as_attachment=True)
 
-@app.route('/read', methods=['GET', 'POST'])
-def upload_file():
-    if request.method == 'POST':
-        if 'file' not in request.files:
-            return 'No file part'
-        file = request.files['file']
-        if file.filename == '':
-            return 'No selected file'
-        if file and file.filename.endswith('.pdf'):
-            filepath = app.config['UPLOAD_FOLDER'] + file.filename
-            file.save(filepath)
-            pdf_text = read_pdf(filepath)
-            forml = pdf_text
-            return pdf_text
-    return '''
-    <!doctype html>
-    <title>Upload PDF</title>
-    <h1>Upload PDF</h1>
-    <form method=post enctype=multipart/form-data>
-      <input type=file name=file>
-      <input type=submit value=Upload>
-    </form>
-    '''
+@app.route('/success', methods=['POST'])
+@app.route('/success', methods=['POST'])
+def success():
+    if 'file' not in request.files:
+        return 'No file part'
+    file = request.files['file']
+    if file.filename == '':
+        return 'No selected file'
+    if file and file.filename.endswith('.pdf'):
+        job_title = request.form['job_title']
+        filename = secure_filename(file.filename)
+        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file.save(filepath)
+
+        # Read PDF and extract text
+        pdf_text = read_pdf(filepath)
+
+        # Return a response with the extracted text and job title
+        return f'File uploaded successfully with job title: {job_title}<br>PDF Text: {pdf_text}'
+    
+    return 'File upload failed', 400
 
 def read_pdf(filepath):
+    """Read PDF file and extract text."""
     doc = fitz.open(filepath)
     text = ""
     for page_num in range(len(doc)):
-        page = doc.load_page(page_num) 
-        text += page.get_text() 
+        page = doc.load_page(page_num)
+        text += page.get_text()
     return text
 
 @app.route('/model')
 def idkbhai():
     return str('yay')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
