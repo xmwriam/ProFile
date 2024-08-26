@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Re-evaluate UI</title>
+    <style>
+        body {
+            background-color: #3b3f45;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #00ffcc;
+        }
+
+        .container {
+            width: 700px;
+            height: 400px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-arrow {
+            width: 20px;
+            height: 20px;
+            background-color: #3d5afe;
+            mask: url('https://img.icons8.com/material-outlined/24/ffffff/left.png') no-repeat center;
+            -webkit-mask: url('https://img.icons8.com/material-outlined/24/ffffff/left.png') no-repeat center;
+            mask-size: contain;
+            -webkit-mask-size: contain;
+            cursor: pointer;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .left-section {
+            width: 50%;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .left-section div {
+            background-color: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            color: #00ffcc;
+        }
+
+        .right-section {
+            width: 35%;
+            height: 220px;
+            background-color: #fff;
+            border-radius: 10px;
+        }
+
+        .reevaluate-button {
+            width: 150px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 10px;
+            color: #00ffcc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .reevaluate-button:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-arrow"></div>
+        <div class="left-section">
+            <div>Job title</div>
+            <div>Buzz words</div>
+            <div>Errors</div>
+        </div>
+        <div class="right-section"></div>
+        <div class="reevaluate-button">Re-evaluate</div>
+    </div>
+</body>
+</html>
