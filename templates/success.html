@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Download</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('{{ url_for("static", filename="bg.svg") }}') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            padding: 50px;
+            background: rgba(255, 255, 255, 0.8); /* Translucent white background */
+            border-radius: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: rgba(3, 39, 68, 0.8); /* Sea green color */
+            margin-bottom: 20px;
+        }
+
+        a {
+            display: inline-block;
+            background-color: rgba(3, 39, 68, 0.8); /* Sea green background */
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        a:hover {
+            background-color:rgba(3, 39, 68, 0.8); /* Brighter blue on hover */
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Download Your File</h1>
+        <a href="/download" download>Download Resume.pdf</a>
+    </div>
+</body>
+
+</html>

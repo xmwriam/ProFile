@@ -1,6 +1,7 @@
-from flask import Flask,render_template,request,redirect,url_for
+from flask import Flask,render_template,request,redirect,url_for,send_file
 import fitz
 import subprocess
+import os
 from fileinput import filename 
 
 app = Flask(__name__)
@@ -9,13 +10,14 @@ app.config['UPLOAD_FOLDER'] = 'uploads/'
 @app.route('/')
 def landing_page():
     return render_template("landing.html")
+    
 @app.route('/choice')
 def choose():
     return render_template("index.html")
 
 @app.route('/rateit')
 def rate():
-    pass
+    return 'a'
 
 @app.route('/makeit',methods=["POST","GET"])
 def pdf():
@@ -75,18 +77,18 @@ def pdf():
         arr.append(request.form['voldesc2'])
         arr.append(request.form['voldur2'])
         generate(arr)
-        return "success"
+        return render_template("success.html")
     else:
         return render_template("makepage.html")
     
 def generate(arr):
     make_file(arr)
-    subprocess.call(['pdflatex', '-output-directory=outputs/','templates/input_file.tex'], shell=False)
+    subprocess.call(['pdflatex', '-output-directory=static/outputs/','templates/Resume.tex'], shell=False)
     return 'a'
 
 def make_file(arr):
     f = open('templates/sample1.txt','r')
-    fo = open('templates/input_file.tex','w')
+    fo = open('templates/Resume.tex','w')
     k = f.read()
     answers = arr
     check = False
@@ -105,6 +107,11 @@ def make_file(arr):
             else:
                 fo.write(i)
     return 'a'
+
+@app.route('/download')
+def download_file():
+    file_path = os.path.join('static/outputs/Resume.pdf')
+    return send_file(file_path, as_attachment=True)
 
 @app.route('/read', methods=['GET', 'POST'])
 def upload_file():
@@ -137,6 +144,10 @@ def read_pdf(filepath):
         page = doc.load_page(page_num) 
         text += page.get_text() 
     return text
+
+@app.route('/model')
+def idkbhai():
+    return str('yay')
 
 if __name__ == '__main__':
     app.run(debug=True)

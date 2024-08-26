@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>placeholder</title>
+    <title>Review and Make</title>
+
     <script>
         function makepage() {
             window.location = '/makeit';
@@ -12,10 +14,86 @@
             window.location = '/rateit';
         }
     </script>
+    <style>
+        body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('{{ url_for("static", filename="bg.svg") }}');
+    background-size: cover; /* Ensures the image covers the entire screen */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+    
+
+        .container {
+            top:20vh;
+            text-align: center;
+            width: 60vw;
+            height:40vh;
+            padding: 50px;
+            background: rgba(238, 240, 241, 0.48); /* Translucent white background */
+            border-radius: 30px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-size: 5rem;
+            font-weight: bold;
+            color: rgb(5, 18, 45); /* Brighter sea green color for the logo */
+            margin-bottom: 50px;
+            cursor: pointer;
+        }
+
+        .logo span.blue {
+            color: rgb(5, 18, 45) /* Brighter blue part of the logo */
+        }
+
+        .logo span.gradient {
+            background: linear-gradient(to right,rgb(5, 18, 45), #2E8B57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .button {
+        background-color: #2c2929; /* Light grey background */
+        color: #45a4ab; /* Green font color */
+        border: none;
+        padding: 20px 40px;
+        font-size: 2rem;
+        cursor: pointer;
+        border-radius: 30px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .button:hover {
+        background-color: #000; /* Black background on hover */
+        color: #fff; /* White text on hover */
+        transition-duration: 0.15s;
+    }
+    </style>
 </head>
-<body class="body">
-    <b1 type="button" class="submission" onclick="makepage()" >makeit</b1>
-    <b1 type="button" class="generate" onclick="ratepage()">rateit</b1>
-    <h1 class="myText">kuch toh hai.</h1>
+
+<body>
+    <div class="container">
+        <div class="logo" onclick="makepage()">
+            <span class="blue">Pro</span><span class="gradient">File</span>
+        </div>
+        <div class="buttons">
+            <button class="button" onclick="makepage()">Customise</button>
+            <button class="button" onclick="ratepage()">Optimise</button>
+        </div>
+    </div>
 </body>
+
 </html>
