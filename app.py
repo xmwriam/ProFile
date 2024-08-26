@@ -1,4 +1,5 @@
 from flask import Flask,render_template,request,redirect,url_for,send_file
+from finalize.py import preprocess_text , recommend_skills , final , number , spelling , find_misspelled_words , score 
 import fitz
 import subprocess
 import os
@@ -132,7 +133,9 @@ def success():
         pdf_text = read_pdf(filepath)
 
         # Return a response with the extracted text and job title
+        return render_template("template.html")
         return f'File uploaded successfully with job title: {job_title}<br>PDF Text: {pdf_text}'
+    
     
     return 'File upload failed', 400
 
